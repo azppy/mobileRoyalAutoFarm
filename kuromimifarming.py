@@ -1,10 +1,9 @@
 import pyautogui
 import time
 import lib.clicktenkey as clicktenkey
-
-
 TIME = 0.8
-path = "csv/input.csv"  # pathという変数で、input.csvのパスを保持
+
+path = "csv/kuromimifarming.csv"  # pathという変数で、input.csvのパスを保持
 x = []
 y = []
 with open(path, "r") as f:  # open関数にて開いたファイルの内容をfに保持   
@@ -12,14 +11,15 @@ with open(path, "r") as f:  # open関数にて開いたファイルの内容をf
         x.append(line.split(",")[2])
         y.append(line.split(",")[3]) 
 
-wait_times = [1]#各ループ終了後の待機時間
-r = [(1, 14)]#fリストのr0行目からr1行目
+wait_times = [1, 440, 1240, 1790, 1,1]#各ループ終了後の待機時間
+r = [(1, 14), (14, 22), (22, 30),(30, 37),(37, 42),(1, 14)]#fリストのr0行目からr1行目
 
 for i in range(len(r)):
     pyautogui.click(1280,130)# 指定した座標にあるウィンドウをアクティブにする  
     for j in range(r[i][0], r[i][1]):
         pyautogui.click(635, 255)# 虫眼鏡をクリック
         time.sleep(TIME)# TIME秒待つ
+        
         pyautogui.click(735,475)# X入力をクリック
         time.sleep(TIME)# TIME秒待つ
         num=x[j]#j回目のxを抽出
@@ -35,7 +35,6 @@ for i in range(len(r)):
         clicktenkey.function(num)
         pyautogui.click (1160,625)#Y入力チェック
         time.sleep(TIME)
-
         pyautogui.click (720,605)#座標スタート
         time.sleep(TIME)
 
