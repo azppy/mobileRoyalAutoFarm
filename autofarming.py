@@ -55,7 +55,7 @@ def farming():
         target_time = time.time() + dur[i]   # 現在時刻に所要時間を加算して目標時刻を計算
         target_times.append(target_time)  # 目標時刻をリストに追加
 
-        while len(target_times) >= 8:
+        while len(target_times) >= 4:
             if target_times and target_times[0] <= time.time():
                 target_times.pop(0)
                 time.sleep(1)
