@@ -2,14 +2,14 @@ import pyautogui
 import time
 import csv
 from lib import clicktenkey
+import math
 
 
-def farming(farmland = "csv/input.csv"):
+def farming(farmland = "csv/input.csv",loc = [283,462],per_second = 0.3):
     TIME = 0.8
 
     x = []
     y = []
-    dur = []
 
     with open(farmland, 'r') as f:  # CSVファイルからデータを読み込みながら処理
         reader = csv.reader(f)
@@ -17,11 +17,10 @@ def farming(farmland = "csv/input.csv"):
         for row in reader:
             x.append(int(row[2]))
             y.append(int(row[3]))
-            dur.append(int(row[4])) 
 
     target_times = []  # 目標時刻を保持するリスト
 
-    for i in range(len(dur)):
+    for i in range(len(x)):
         pyautogui.click(1280, 130)  # 指定した座標にあるウィンドウをアクティブにする
         pyautogui.click(635, 255)  # 虫眼鏡をクリック
         time.sleep(TIME)  # TIME秒待つ
@@ -53,7 +52,9 @@ def farming(farmland = "csv/input.csv"):
         pyautogui.click(1040, 730)  # OK
         time.sleep(TIME)
 
-        target_time = time.time() + dur[i]   # 現在時刻に所要時間を加算して目標時刻を計算
+        distance = math.sqrt((x[i]-loc[0])**2 + (y[i]-loc[1])**2)
+        required_time = distance / per_second
+        target_time = time.time() + required_time * 2   # 現在時刻に所要往復時間を加算して目標時刻を計算
         target_times.append(target_time)  # 目標時刻をリストに追加
         target_times.sort()
 
@@ -65,4 +66,4 @@ def farming(farmland = "csv/input.csv"):
             time.sleep(1)
 
 if __name__ == "__main__": 
-    farming(farmland =  "csv/farm_kuromimi.csv")
+    farming(farmland =  "csv/farm_kuromimi.csv",loc = [223,31],per_second = 0.3)
