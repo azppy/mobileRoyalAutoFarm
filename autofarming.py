@@ -58,7 +58,7 @@ def farming(farmland = "csv/input.csv",loc = [283,462],per_second = 0.3):
         target_times.append(target_time)  # 目標時刻をリストに追加
         target_times.sort()
 
-        while len(target_times) >= 8:
+        while len(target_times) >= 7:
             if target_times and target_times[0] <= time.time():
                 target_times.pop(0)
                 time.sleep(1)
